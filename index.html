@@ -7,21 +7,23 @@
 
     <style>
         body {
-            /* 冬の背景：雪、クリスマスカラーなど */
-            background: linear-gradient(to bottom, #1e3c72, #2a5298); /* 濃い青から明るい青へのグラデーション */
-            color: white; /* 文字色を白に */
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* スマホ画面全体に表示 */
-            text-align: center;
-            /* **注: 背景画像ファイルは別途アップロードが必要です** */
-            /* background-image: url('placeholder-snow-background.jpg'); */ 
-            background-size: cover;
-            background-position: center;
+        /* 冬の背景：雪、クリスマスカラーなど */
+        background: linear-gradient(to bottom, #1e3c72, #2a5298); 
+        color: white; 
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; 
+        text-align: center;
+        
+        /* 🎅 【ここを修正しました】 🎅 */
+        background-image: url('IMG_0388.JPG'); /* 追加したファイル名に変更 */
+        background-size: cover; /* 画面いっぱいに広げる */
+        background-position: center; /* 画像を中央に配置 */
+        background-attachment: fixed; /* 背景画像を固定 */
         }
 
         .container {
