@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 冬のクイズチャレンジ</title>
+
+    <style>
+        body {
+            /* 冬の背景：雪、クリスマスカラーなど */
+            background: linear-gradient(to bottom, #1e3c72, #2a5298); /* 濃い青から明るい青へのグラデーション */
+            color: white; /* 文字色を白に */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* スマホ画面全体に表示 */
+            text-align: center;
+            /* **注: 背景画像ファイルは別途アップロードが必要です** */
+            /* background-image: url('placeholder-snow-background.jpg'); */ 
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15); /* 半透明の白い背景 */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px; /* スマホサイズに限定 */
+            width: 90%;
+        }
+
+        h1 {
+            color: #ffd700; /* クリスマスらしい金色 */
+            margin-bottom: 20px;
+        }
+
+        #answer-input {
+            width: 80%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #c0392b; /* クリスマスレッド */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e74c3c;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #ffdd00; 
+            height: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-title {
+            font-size: 2.5em;
+            color: #2ecc71; 
+        }
+
+        .success-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 5px solid white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="quiz-page">
+            <h1>❄️ 冬のクイズチャレンジ 🎄</h1>
+            <p>この雪景色で楽しめる冬のスポーツといえば何でしょう？</p>
+            
+            <input type="text" id="answer-input" placeholder="ひらがなで入力してください">
+            
+            <button onclick="checkAnswer()">回答する</button>
+
+            <p id="message"></p>
+        </div>
+
+        <div id="success-page" class="hidden">
+            <h1 class="success-title">🎉 大正解！ 🎉</h1>
+            <p>素晴らしい！あなたはクリスマスの魔法を知っていますね！</p>
+            <img src="placeholder-ski-photo.jpg" alt="スキーをしている写真" class="success-image">
+            <p>※画像を準備し、このファイル名に置き換えてください。</p>
+        </div>
+    </div>
+
+    <script>
+        // 正解のワードを設定
+        const CORRECT_ANSWER = "スキー";
+
+        // 正誤判定を行う関数
+        function checkAnswer() {
+            // 入力値を取得し、全角スペース除去、小文字化を行う
+            const inputElement = document.getElementById('answer-input');
+            const inputAnswer = inputElement.value.trim().toLowerCase();
+            
+            // メッセージ要素とページ要素を取得
+            const messageElement = document.getElementById('message');
+            const quizPage = document.getElementById('quiz-page');
+            const successPage = document.getElementById('success-page');
+
+            // 判定ロジック
+            if (inputAnswer === CORRECT_ANSWER) {
+                // 正解の場合
+                messageElement.textContent = '';
+                
+                // ページを切り替える
+                quizPage.classList.add('hidden'); // クイズ画面を非表示
+                successPage.classList.remove('hidden'); // 正解画面を表示
+                
+            } else {
+                // 不正解の場合
+                messageElement.textContent = "😔 残念、違います。もう一度よく考えてみましょう。";
+                inputElement.value = ''; // 入力窓をクリア
+                
+                messageElement.style.color = '#e74c3c'; // 不正解は赤
+            }
+        }
+    </script>
+</body>
+</html>
