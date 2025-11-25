@@ -7,23 +7,23 @@
 
     <style>
         body {
-        /* 冬の背景：雪、クリスマスカラーなど */
-        background: linear-gradient(to bottom, #1e3c72, #2a5298); 
-        color: white; 
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh; 
-        text-align: center;
-        
-        /* 🎅 【ここを修正しました】 🎅 */
-        background-image: url('IMG_0388.JPG'); /* 追加したファイル名に変更 */
-        background-size: cover; /* 画面いっぱいに広げる */
-        background-position: center; /* 画像を中央に配置 */
-        background-attachment: fixed; /* 背景画像を固定 */
+            /* 変更点: 背景画像はJSで設定するため、ここでは初期設定のみ */
+            background-color: #1e3c72; /* デフォルトの背景色 */
+            color: white; 
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            text-align: center;
+            
+            /* スライドショー用背景のスタイル */
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            transition: background-image 1s ease-in-out; /* 画像切り替え時のフェードイン/アウト効果 */
         }
 
         .container {
@@ -31,12 +31,12 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            max-width: 400px; /* スマホサイズに限定 */
+            max-width: 400px; 
             width: 90%;
         }
 
         h1 {
-            color: #ffd700; /* クリスマスらしい金色 */
+            color: #ffd700; 
             margin-bottom: 20px;
         }
 
@@ -51,7 +51,7 @@
         }
 
         button {
-            background-color: #c0392b; /* クリスマスレッド */
+            background-color: #c0392b; 
             color: white;
             padding: 12px 25px;
             border: none;
@@ -107,41 +107,56 @@
         <div id="success-page" class="hidden">
             <h1 class="success-title">🎉 大正解！ 🎉</h1>
             <p>素晴らしい！あなたはクリスマスの魔法を知っていますね！</p>
-            <img src="placeholder-ski-photo.jpg" alt="スキーをしている写真" class="success-image">
-            <p>※画像を準備し、このファイル名に置き換えてください。</p>
+            <img src="IMG_0388.JPG" alt="スキーをしている写真" class="success-image"> 
+            <p>※必要に応じて正解時の画像を別のものに変更してください。</p>
         </div>
     </div>
 
     <script>
-        // 正解のワードを設定
+        // --- スライドショー用のJavaScriptコード ---
+        const backgroundImages = [
+            'IMG_0212.JPG',
+            'IMG_0224.JPG',
+            'IMG_0226.JPG',
+            'IMG_0387.JPG',
+            'IMG_0388.JPG',
+            'IMG_0398.JPG',
+            'IMG_0401.JPG'
+        ];
+        let currentImageIndex = 0;
+        const slideIntervalTime = 5000; // 5秒ごとに画像を切り替える
+
+        function changeBackgroundImage() {
+            document.body.style.backgroundImage = `url('${backgroundImages[currentImageIndex]}')`;
+            currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
+        }
+
+        // ページ読み込み時に最初の画像を設定
+        document.addEventListener('DOMContentLoaded', () => {
+            changeBackgroundImage(); // 最初の画像を表示
+            setInterval(changeBackgroundImage, slideIntervalTime); // 以降、定期的に画像を切り替え
+        });
+
+
+        // --- クイズロジックのJavaScriptコード ---
         const CORRECT_ANSWER = "スキー";
 
-        // 正誤判定を行う関数
         function checkAnswer() {
-            // 入力値を取得し、全角スペース除去、小文字化を行う
             const inputElement = document.getElementById('answer-input');
             const inputAnswer = inputElement.value.trim().toLowerCase();
             
-            // メッセージ要素とページ要素を取得
             const messageElement = document.getElementById('message');
             const quizPage = document.getElementById('quiz-page');
             const successPage = document.getElementById('success-page');
 
-            // 判定ロジック
             if (inputAnswer === CORRECT_ANSWER) {
-                // 正解の場合
                 messageElement.textContent = '';
-                
-                // ページを切り替える
-                quizPage.classList.add('hidden'); // クイズ画面を非表示
-                successPage.classList.remove('hidden'); // 正解画面を表示
-                
+                quizPage.classList.add('hidden'); 
+                successPage.classList.remove('hidden'); 
             } else {
-                // 不正解の場合
                 messageElement.textContent = "😔 残念、違います。もう一度よく考えてみましょう。";
-                inputElement.value = ''; // 入力窓をクリア
-                
-                messageElement.style.color = '#e74c3c'; // 不正解は赤
+                inputElement.value = ''; 
+                messageElement.style.color = '#e74c3c'; 
             }
         }
     </script>
